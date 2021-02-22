@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundProgressBar">
+        <attr name="color" format="color"/>
+        <attr name="line_width" format="dimension"/>
+        <attr name="radius" format="dimension"/>
+        <!--  如果系统已经存在，则可以直接使用系统定义的，语义比较清楚 -->
+        <attr name="android:process" format="string"/>
+        <attr name="android:textSize" format="dimension"/>
+    </declare-styleable>
+</resources>

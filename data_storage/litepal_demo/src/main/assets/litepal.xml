@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<litepal>
+    <!-- 指定数据库名称 -->
+    <dbname value="BookStore"/>
+    <!-- 指定数据库版本号 -->
+    <version value="3"/>
+    <!-- 指定映射模型 -->
+    <list>
+        <mapping class="cn.tim.litepal_demo.Book"/>
+        <mapping class="cn.tim.litepal_demo.Category"/>
+    </list>
+</litepal>

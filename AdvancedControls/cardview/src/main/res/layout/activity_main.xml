@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+    <!--
+    cardBackgroundColor：设置背景色
+    cardCornerRadius：设置圆角
+    cardElevation：设置阴影
+    contentPadding：设置内部padding
+    -->
+    <androidx.cardview.widget.CardView
+        android:layout_gravity="center"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:contentPadding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:text="Hello World!"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

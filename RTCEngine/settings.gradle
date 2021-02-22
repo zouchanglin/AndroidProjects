@@ -1,0 +1,4 @@
+rootProject.name = "RTCEngine"
+include ':app'
+include ':rtcenginemany'
+include ':rtcinteract'

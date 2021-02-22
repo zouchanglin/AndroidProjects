@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item
+    android:id="@+id/navigation_home"
+    android:icon="@mipmap/tabbar_home"
+    android:title="Home" />
+
+<item
+    android:id="@+id/navigation_message"
+    android:icon="@mipmap/tabbar_msg"
+    android:title="Message" />
+
+<item
+    android:id="@+id/navigation_user"
+    android:icon="@mipmap/tabbar_my"
+    android:title="User" />
+
+</menu>

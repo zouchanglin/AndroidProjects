@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_develop" android:title="开发" app:showAsAction="always"/>
+    <item android:id="@+id/menu_setting" android:title="设置" app:showAsAction="always"/>
+    <item android:id="@+id/menu_save" android:title="保存"/>
+    <item android:title="更多操作" >
+        <menu>
+            <item android:title="编辑" android:icon="@mipmap/ic_launcher"/>
+            <item android:title="分享"/>
+        </menu>
+    </item>
+</menu>

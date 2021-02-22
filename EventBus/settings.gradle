@@ -1,0 +1,4 @@
+rootProject.name = "EventBus"
+include ':app'
+include ':testone'
+include ':eventbus_mode'

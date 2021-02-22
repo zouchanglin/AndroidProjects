@@ -1,0 +1,8 @@
+include ':personal'
+include ':order'
+include ':common'
+include ':app'
+rootProject.name = "module_study"
+
+// groovy jvm
+println 'settings.gradle run ...'

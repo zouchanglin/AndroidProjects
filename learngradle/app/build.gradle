@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.application'
+}
+
+println 'app -> build.gradle run ...'
+
+// 使用app_config.gradle, rootProject是内置的对象
+//def my_name = this.rootProject.ext.username
+//println my_name
+
+//println "rootProject.name = ${rootProject.name}"
+
+android {
+    compileSdkVersion app_android.compileSdkVersion
+    buildToolsVersion app_android.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.tal.learn_gradle"
+        minSdkVersion app_android.minSdkVersion
+        targetSdkVersion app_android.targetSdkVersion
+        versionCode app_android.versionCode
+        versionName app_android.versionName
+
+        testInstrumentationRunner app_android.testInstrumentationRunner
+    }
+
+    buildTypes {
+        debug {
+            // 测试环境用debug_url
+            buildConfigField("String", "SERVER_URL", "\"${app_server_url.debug}\"")
+        }
+        release {
+            // 正式环境用release_url
+            buildConfigField("String", "SERVER_URL", "\"${app_server_url.release}\"")
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility app_compile.sourceCompatibility
+        targetCompatibility app_compile.targetCompatibility
+    }
+}
+
+dependencies {
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+//    implementation app_impl.appcompat
+//    implementation app_impl.material
+//    testImplementation app_impl.junit
+//    androidTestImplementation app_impl.androidx_junit
+//    androidTestImplementation app_impl.androidx_espresso
+
+
+    // 更简化的方式，但是这样都是以implementation的方式添加进来的
+    app_impl.each {
+        k, v ->
+            implementation v
+            //println "引入 > ${k}"
+    }
+
+}

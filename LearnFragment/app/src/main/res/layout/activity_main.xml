@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:onClick="toStaticLoadActivity"
+        android:text="static load fragment" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/load_left"
+            android:text="加载左边"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:onClick="dynamicLoad"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/load_right"
+            android:text="加载右边"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:onClick="dynamicLoad"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/remove_left"
+            android:text="删除左边"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:onClick="dynamicLoad"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/remove_right"
+            android:text="删除右边"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:onClick="dynamicLoad"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_margin="1dp"
+            android:id="@+id/list_container"
+            android:layout_width="150dp"
+            android:orientation="horizontal"
+            android:layout_height="400dp">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="1dp"
+            android:orientation="horizontal"
+            android:id="@+id/detail_container"
+            android:layout_width="200dp"
+            android:layout_height="400dp">
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

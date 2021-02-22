@@ -1,0 +1,18 @@
+ext {
+    username = "zouchanglin"
+
+    // 定义Map
+    app_android = [
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.3",
+            minSdkVersion: 23,
+            targetSdkVersion: 30,
+            versionCode: 1,
+            versionName: "1.0",
+            testInstrumentationRunner: "androidx.test.runner.AndroidJUnitRunner",
+            consumerProguardFiles: "consumer-rules.pro"
+    ]
+
+    // 是否是发布模式 所有模块都是lib/apk
+    isRelease = true
+}

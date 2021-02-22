@@ -1,0 +1,14 @@
+ext {
+
+    // 是否是发布(集成)模式
+    isRelease = true
+
+    username = "zouchanglin"
+
+    // Map
+    app_android = [
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.3",
+            minSdkVersion: 23
+    ]
+}

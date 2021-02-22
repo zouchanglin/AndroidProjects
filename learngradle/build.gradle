@@ -1,0 +1,223 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+println 'build.gradle run ...'
+
+// 加载项目的gradle的时候，就引入app_config.gradle
+apply from : 'app_config.gradle'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.2"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    //println 'run clean task ...'
+    delete rootProject.buildDir
+}
+
+task aMyTask {
+    description 'aMyTask描述信息'
+    // 添加到Action队列头部
+    doFirst {
+        println "before execute aMyTask1"
+    }
+    // 添加到Action队列头部
+    doFirst {
+        println "before execute aMyTask2"
+    }
+    // 在配置阶段执行
+    println "在配置阶段执行 run aMyTask ..."
+
+
+
+    // 添加到Action队列尾部
+    doLast {
+        println "after execute aMyTask1"
+    }
+
+    // 添加到Action队列尾部
+    doLast {
+        println "after execute aMyTask2"
+    }
+}
+//
+//task aMyTask2 {
+//    doLast {
+//        println "run aMyTask2 ..."
+//    }
+//}
+//
+////aMyTask.doLast {
+////    println "after execute aMyTask"
+////}
+////
+////aMyTask.doFirst {
+////    println "before execute aMyTask"
+////}
+//
+//tasks.create("aMyTask3"){
+//    println "run aMyTask3 ..."
+//}
+//
+//class MyTask4 extends DefaultTask {
+//
+//    @TaskAction
+//    void action(){
+//        println "run MyTask4 ..."
+//    }
+//}
+//
+////创建 aMyTask5
+//task aMyTask5 (type: MyTask4){
+//    doLast {
+//        println "run MyTask5 ..."
+//    }
+//}
+//
+//println "aMyTask.description = " + aMyTask.description
+//
+//// 定义taskA
+//task taskA {
+//    doLast {
+//        println 'TaskA run ...'
+//    }
+//}
+//
+//// 定义taskB extend taskA
+//task taskB {
+//    dependsOn taskA // 通过方法设置
+//    doLast {
+//        println 'TaskB run ...'
+//    }
+//}
+//
+//// 定义taskC extend taskA
+//task taskC(dependsOn: taskA) {
+//    dependsOn taskA // 通过Map参数依赖任务A
+//    doLast {
+//        println 'TaskC run ...'
+//    }
+//}
+//
+//// 定义taskD
+//task taskD {
+//    doLast {
+//        println 'TaskD run ...'
+//    }
+//}
+//
+//// 定义taskE extend taskA, taskD
+//task taskE {
+//    doLast {
+//        println 'TaskE run ...'
+//    }
+//}
+//taskE.dependsOn taskA, taskD // 通过dependsOn方法同时依赖两个任务A和D
+//
+//// 定义任务A
+//task taskA {
+//    doLast {
+//        println 'TaskA run ...'
+//    }
+//}
+//
+//// 定义任务C
+//task taskC {
+//    doLast {
+//        println 'TaskC run ...'
+//    }
+//}
+//
+//
+//task taskB {
+//    doLast {
+//        println 'TaskB run ...'
+//    }
+//}
+//
+//// 任务B执行后，立刻执行任务A和任务C
+//taskB.finalizedBy taskA, taskC
+
+//
+//task taskA {
+//    doLast {
+//        println 'TaskA run ...'
+//    }
+//}
+//
+//task taskB {
+//    doLast {
+//        println 'TaskB run ...'
+//    }
+//}
+//
+//// 任务A必须在任务B之后执行
+//taskA.mustRunAfter taskB
+//
+//// 通过执行命令 ./gradlew taskA taskB
+//
+//// 使用./gradlew disableTask运行
+//task disableTask {
+//    enabled false // 1、直接方法设置
+//    doLast {
+//        println 'disableTask run ...'
+//    }
+//}
+//disableTask.enabled = false // 2、直接属性设置
+
+//// 使用gradlew sayBye -Pxx运行，这里的-P是添加参数的意思
+//task onlyIfTestTask {
+//    doLast {
+//        println 'onlyIfTestTask run ...'
+//    }
+//}
+//// 只有当project中没有xx属性时，任务才可以执行
+//onlyIfTestTask.onlyIf {
+//    !project.hasProperty('xx')
+//}
+
+//
+//// 使用./gradlew taskA运行
+//task taskA {
+//    doLast {
+//        // 不会影响后续任务的执行
+//        throw new StopExecutionException()
+//    }
+//}
+//
+//task taskB(dependsOn: taskA) {
+//    doLast { // 并不影响nextTask的执行
+//        println 'taskB run ...'
+//    }
+//}
+
+
+//// 故意超时
+//task taskA {
+//    doLast {
+//        Thread.sleep(100000)
+//    }
+//    timeout = Duration.ofMillis(500)
+//}
+//
+//task taskB(dependsOn: taskA) {
+//    doLast { // 并不影响nextTask的执行
+//        println 'taskB run ...'
+//    }
+//}
+

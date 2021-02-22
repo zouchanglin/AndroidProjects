@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ActivityDemo</string>
+    <string name="click_to_other_activity">点击跳转</string>
+</resources>

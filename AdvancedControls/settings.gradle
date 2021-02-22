@@ -1,0 +1,7 @@
+include ':cardview_demo'
+include ':cardview'
+include ':wechat'
+include ':imooc_list'
+include ':listview'
+include ':app'
+rootProject.name = "AdvancedControls"

@@ -1,0 +1,66 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion app_android.compileSdkVersion
+    buildToolsVersion app_android.buildToolsVersion
+
+    defaultConfig {
+        applicationId "cn.tim.study_modualr"
+        minSdkVersion app_android.minSdkVersion
+        targetSdkVersion app_android.targetSdkVersion
+        versionCode app_android.versionCode
+        versionName app_android.versionName
+
+        testInstrumentationRunner app_android.testInstrumentationRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility app_compile.sourceCompatibility
+        targetCompatibility app_compile.targetCompatibility
+    }
+
+    // 源集 —— 用来设置Java目录或者资源目录
+    sourceSets {
+        main {
+            if(!isRelease){
+                // 如果是组件化模式，需要单独运行时
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java.srcDirs = ['src/main/java']
+                res.srcDirs = ['src/main/res']
+                resources.srcDirs = ['src/main/resources']
+                aidl.srcDirs = ['src/main/aidl']
+                assets.srcDirs = ['src/main/assets']
+            }else{
+                // 集成化模式，整个项目打包
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    implementation app_impl.appcompat
+    implementation app_impl.material
+    testImplementation app_impl.junit
+    androidTestImplementation app_impl.androidx_junit
+    androidTestImplementation app_impl.androidx_espresso
+
+    // 如果是集成化模式，做项目发布的时候，各个模块不能独立运行了，则需要集成
+    if(isRelease){
+        // 全部集成在一起
+        implementation project(":order")
+        implementation project(":personal")
+    }else {
+        // 组件化模式，分离依赖
+    }
+}

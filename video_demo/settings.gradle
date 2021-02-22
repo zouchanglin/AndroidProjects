@@ -1,0 +1,6 @@
+include ':nice_test'
+include ':my_video'
+include ':textureview_demo'
+include ':custom_video'
+include ':app'
+rootProject.name = "video_demo"

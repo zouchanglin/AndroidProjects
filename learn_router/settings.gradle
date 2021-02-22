@@ -1,0 +1,10 @@
+rootProject.name = "learn_router"
+include ':app'
+include ':shop'
+include ':find'
+include ':main'
+include ':common'
+include ':router_annotation'
+include ':router_compiler'
+
+println('settings.gradle run ...')

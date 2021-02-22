@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.library'
+}
+
+def app_android = this.rootProject.ext.app_android
+
+android {
+    compileSdkVersion app_android.compileSdkVersion
+    buildToolsVersion app_android.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion app_android.minSdkVersion
+        targetSdkVersion app_android.targetSdkVersion
+        versionCode app_android.versionCode
+        versionName app_android.versionName
+
+        testInstrumentationRunner app_android.testInstrumentationRunner
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility app_compile.sourceCompatibility
+        targetCompatibility app_compile.targetCompatibility
+    }
+}
+
+dependencies {
+    implementation app_impl.appcompat
+    implementation app_impl.material
+    testImplementation app_impl.junit
+    androidTestImplementation app_impl.androidx_junit
+    androidTestImplementation app_impl.androidx_espresso
+}

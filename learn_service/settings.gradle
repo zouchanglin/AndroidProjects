@@ -1,0 +1,10 @@
+include ':https_demo'
+include ':basicnetwork'
+include ':addressbook'
+include ':contentresoverdemo'
+include ':contentproviderdemo'
+include ':aidl_transfer'
+include ':aidl_demo'
+include ':basic_service'
+include ':app'
+rootProject.name = "learn_service"

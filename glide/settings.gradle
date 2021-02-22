@@ -1,0 +1,2 @@
+rootProject.name = "glide"
+include ':app'

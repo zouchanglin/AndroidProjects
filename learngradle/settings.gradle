@@ -1,0 +1,5 @@
+include ':mylibrary'
+include ':app'
+rootProject.name = "learn-gradle"
+
+println 'settings.gradle run ...'

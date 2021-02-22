@@ -1,0 +1,16 @@
+SpannableString spanttt = new SpannableString(" "+ messageEntity.getSender() + ": ");
+Drawable drawable = ResourcesCompat.getDrawable(context.getResources(), R.drawable.live_business_icon_msg_teacher_ps, null);
+drawable.setBounds(0, 0, SizeUtils.dp2px(32), SizeUtils.dp2px(14));
+
+//
+holder.textView.setCompoundDrawables(drawable, null, null, null);
+
+CenterAlignImageSpan imageSpan = new CenterAlignImageSpan(drawable);
+spanttt.setSpan(imageSpan, 0, 1, ImageSpan.ALIGN_BASELINE);
+
+CharacterStyle characterStyle = new ForegroundColorSpan(Color.BLUE);
+spanttt.setSpan(characterStyle, 1, messageEntity.getSender().length() + 3, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+SpannableStringBuilder builder = new SpannableStringBuilder();
+builder.append(spanttt).append(messageEntity.getText());
+holder.textView.setText(builder.toString());
+break;

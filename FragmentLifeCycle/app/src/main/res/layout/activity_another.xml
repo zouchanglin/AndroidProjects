@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AnotherActivity">
+
+    <TextView
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:text="这是另一个Activity"
+        android:textAllCaps="false"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

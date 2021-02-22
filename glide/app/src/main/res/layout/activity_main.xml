@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:text="NativeLoadImage"
+        android:textAllCaps="false"
+        android:onClick="nativeLoadImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <Button
+        android:text="GlideLoadImage"
+        android:textAllCaps="false"
+        android:onClick="glideLoadImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:text="GlideAppLoadImage"
+        android:textAllCaps="false"
+        android:onClick="glideAppLoadImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:text="GlideAppLoadCircleImage"
+        android:textAllCaps="false"
+        android:onClick="glideAppLoadCircleImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:text="CompressLoadImage -> 压缩"
+        android:textAllCaps="false"
+        android:onClick="compressLoadImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/iv_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

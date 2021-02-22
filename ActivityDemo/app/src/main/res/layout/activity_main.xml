@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".MainActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="secondActivity"
+        android:text="@string/click_to_other_activity"/>
+
+    <Button
+        android:id="@+id/btn_context_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="contentMenu"
+        android:text="上下文菜单" />
+
+    <Button
+        android:id="@+id/btn_pop_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="popMenu"
+        android:text="弹出式菜单" />
+
+</LinearLayout>

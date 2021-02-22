@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:paddingTop="2dp"
+    android:layout_height="match_parent">
+
+    <com.loopj.android.image.SmartImageView
+        android:id="@+id/icon_iv_item"
+        android:layout_weight="5"
+        android:layout_width="0dp"
+        android:layout_height="100dp">
+    </com.loopj.android.image.SmartImageView>
+
+    <RelativeLayout
+        android:padding="8dp"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="6">
+
+        <TextView
+            android:id="@+id/title_tv_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="XXXXXXXXXX"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/content_tv_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title_tv_item"
+            android:ellipsize="end"
+            android:maxEms="14"
+            android:maxLines="2"
+            android:text="XXXXXXXXXX"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/learn_tv_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:text="XXXXXXXXXX" />
+    </RelativeLayout>
+</LinearLayout>

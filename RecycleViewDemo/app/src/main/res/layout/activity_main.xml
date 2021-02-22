@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".MainActivity">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="添加数据"
+            android:onClick="onClickAddData"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:text="横向排列"
+            android:onClick="onClickHorizontal"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:text="反向展示"
+            android:onClick="onClickReverse"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_linear_layout"
+            android:text="线性布局"
+            android:onClick="onChangeLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btn_grid_layout"
+            android:text="网格布局"
+            android:onClick="onChangeLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btn_staggered_grid_layout"
+            android:text="瀑布流布局"
+            android:onClick="onChangeLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="插入一条数据"
+            android:onClick="onInsertDataClick"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="删除一条数据"
+            android:layout_marginStart="3dp"
+            android:onClick="onRemoveDataClick"/>
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
