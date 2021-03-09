@@ -1,0 +1,4 @@
+include ':annotation-processor'
+include ':annotation'
+include ':app'
+rootProject.name = "apt-demo"

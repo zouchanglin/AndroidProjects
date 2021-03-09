@@ -1,0 +1,3 @@
+include ':multiplayer_video_chat'
+include ':app'
+rootProject.name = "video_chat"

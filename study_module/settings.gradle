@@ -1,3 +1,5 @@
+include ':annotation-processor'
+include ':annotation'
 include ':personal'
 include ':order'
 include ':common'

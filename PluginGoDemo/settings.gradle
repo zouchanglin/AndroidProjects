@@ -1,0 +1,5 @@
+include ':plugin_lib'
+include ':plugin_module'
+include ':plugin'
+include ':app'
+rootProject.name = "PluginGoDemo"

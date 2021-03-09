@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/rtc_status_info_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:baselineAligned="false">
+        <FrameLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:id="@+id/local_video_window"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/local_uid_tv"
+                tools:text="@string/app_name"
+                android:gravity="center"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_local_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="本地视频预览" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_join_channel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="退出/加入Channel" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_video_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="本地Video采集" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_voice_collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本地Voice采集" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_video_stream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="本地Video推流" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/sw_voice_stream"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="本地Voice推流" />
+        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#938F98"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_chat"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

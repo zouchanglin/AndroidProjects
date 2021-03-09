@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_marginTop="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="200dp">
+        <FrameLayout
+            android:id="@+id/item_remote_video_window"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+        <TextView
+            android:id="@+id/item_remote_video_curtain_tv"
+            android:visibility="gone"
+            android:gravity="center"
+            android:background="@color/black"
+            android:text="不接收Ta的视频"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/item_remote_voice_tips_tv"
+            android:visibility="gone"
+            android:gravity="center"
+            android:background="@color/black"
+            android:textColor="@color/white"
+            android:text="不接收Ta的音频"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/item_remote_info_tv"
+                android:textColor="@color/black"
+                tools:text="状态: 在线/离线"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/item_recv_voice_sw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="接收Ta的Voice" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/item_recv_video_sw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="接收Ta的Video" />
+            <TextView
+                android:id="@+id/item_push_video_stream_tv"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ta的视频推流状态: 关\n(关闭接收视频流时指示无效)" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

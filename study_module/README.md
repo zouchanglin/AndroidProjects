@@ -63,6 +63,242 @@ sourceSets {
 >
 > Common -> BaseApplication、BaseNetManager...
 
-## 组件之间的路由
+## JavaPoet与APT
 
-ARouter
+APT(Annotation Processing Tool)注解处理器。
+
+ButterKnife、Dagger、EventBus等都用到了APT。
+
+
+
+自定义注解-> 代码（1、手动一行一行的写 2、使用JavaPoet通过面向对象的思想进行编码）
+
+### 1、使用JavaPoet生成HelloWorld
+
+注解本身的gradle：
+
+```groovy
+// 控制台中文设置UTF-8
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+```
+
+注解处理器引入依赖：
+
+```groovy
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', includes: ['*.jar'])
+
+    // 编译时期进行注解处理
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc4'
+    compileOnly 'com.google.auto.service:auto-service:1.0-rc4'
+
+    // 帮助我们通过类调用的方式来生成Java代码[JavaPoet]
+    implementation 'com.squareup:javapoet:1.10.0'
+
+    // 依赖于注解
+    implementation project(':annotation')
+}
+
+// 控制台中文设置UTF-8
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+```
+
+### 2、APT实现基于注解的View注入
+
+实现基于注解的View，代替项目中的`findByView`。这里仅仅是学习怎么用APT，如果真的想用DI框架，推荐使用ButterKnife，功能全面。
+
+1、annotation module创建@DIActivity、@DIView注解
+
+```java
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.CLASS)
+public @interface DIActivity {
+    
+}
+
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface DIView {
+    int value() default 0;
+}
+```
+
+创建DIProcessor方法
+
+```java
+@AutoService(Processor.class)
+public class DIProcessor extends AbstractProcessor {
+    private Elements elementUtils;
+    @Override
+    public Set<String> getSupportedAnnotationTypes() {
+        // 规定需要处理的注解
+        return Collections.singleton(DIActivity.class.getCanonicalName());
+    }
+    @Override
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        System.out.println("DIProcessor");
+        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(DIActivity.class);
+        for (Element element : elements) {
+            // 判断是否Class
+            TypeElement typeElement = (TypeElement) element;
+            List<? extends Element> members = elementUtils.getAllMembers(typeElement);
+            MethodSpec.Builder bindViewMethodSpecBuilder = MethodSpec.methodBuilder("bindView")
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                    .returns(TypeName.VOID)
+                    .addParameter(ClassName.get(typeElement.asType()), "activity");
+            for (Element item : members) {
+                DIView diView = item.getAnnotation(DIView.class);
+                if (diView == null){
+                    continue;
+                }
+                bindViewMethodSpecBuilder.addStatement(String.format("activity.%s = (%s) activity.findViewById(%s)",item.getSimpleName(),ClassName.get(item.asType()).toString(),diView.value()));
+            }
+            TypeSpec typeSpec = TypeSpec.classBuilder("DI" + element.getSimpleName())
+                    .superclass(TypeName.get(typeElement.asType()))
+                    .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                    .addMethod(bindViewMethodSpecBuilder.build())
+                    .build();
+            JavaFile javaFile = JavaFile.builder(getPackageName(typeElement), typeSpec).build();
+            try {
+                javaFile.writeTo(processingEnv.getFiler());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+    private String getPackageName(TypeElement type) {
+        return elementUtils.getPackageOf(type).getQualifiedName().toString();
+    }
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnv) {
+        super.init(processingEnv);
+        elementUtils = processingEnv.getElementUtils();
+    }
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.RELEASE_7;
+    }
+}
+```
+
+使用DIActivity
+
+```java
+@DIActivity
+public class MainActivity extends Activity {
+    @DIView(R.id.text)
+    TextView textView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        DIMainActivity.bindView(this);
+        textView.setText("Hello World!");
+    }
+}
+```
+
+实际上就是通过apt生成以下代码
+
+```java
+public final class DIMainActivity extends MainActivity {
+ public static void bindView(MainActivity activity) {
+   activity.textView = (android.widget.TextView) activity.findViewById(R.id.text);
+ }
+}
+```
+
+### 3、JavaPoet常用方法总结
+
+常用Element子类
+
+1. TypeElement：类
+2. ExecutableElement：成员方法
+3. VariableElement：成员变量
+
+通过包名和类名获取TypeName
+
+```java
+TypeName targetClassName = ClassName.get(“PackageName”, “ClassName”);
+```
+
+通过Element获取TypeName
+
+```java
+TypeName type = TypeName.get(element.asType());
+```
+
+获取TypeElement的包名
+
+```java
+String packageName = processingEnv.getElementUtils().getPackageOf(type).getQualifiedName().toString();
+```
+
+获取TypeElement的所有成员变量和成员方法
+
+```java
+List<? extends Element> members = processingEnv.getElementUtils().getAllMembers(typeElement);
+```
+
+### 4、生成我们想要的目标代码
+
+```java
+public class MainActivity$$$$$ARouter {
+  public static Class findTargetClass(String path) {
+    return path.equals("app/MainActivity") ? MainActivity.class : null;
+  }
+}
+```
+
+### 5、编译器传递参数
+
+```groovy
+javaCompileOptions {
+  annotationProcessorOptions{
+    arguments = [myvalue: 'hello javapoet']
+  }
+}
+```
+
+拿到参数：
+
+```java
+......
+@SupportedOptions("myvalue")
+public class ARouterProcessor extends AbstractProcessor {
+    // 操作Element的工具类，函数、类、属性都是Element
+    private Elements elementsTool;
+
+    // 类信息的工具类
+    private Types typesTool;
+
+    // 编译期打印日志
+    private Messager messager;
+  
+    ......
+}
+```
+
+
+
+
+
