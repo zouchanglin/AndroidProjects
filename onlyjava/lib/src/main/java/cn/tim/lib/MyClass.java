@@ -10,7 +10,7 @@ import org.schwering.irc.lib.IRCUser;
 import java.io.IOException;
 
 public class MyClass {
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         String jsonStr = "{\n" +
                 "    \"type\":\"10145\",\n" +
                 "    \"groupId\":2101,\n" +

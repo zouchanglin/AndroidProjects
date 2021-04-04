@@ -1,3 +1,4 @@
+include ':router_api'
 include ':annotation-processor'
 include ':annotation'
 include ':personal'

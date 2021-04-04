@@ -22,11 +22,17 @@ android {
         //切记:不能在android根节点，只能在defaultConfig或buildTypes节点下
         buildConfigField("boolean", "isRelease", String.valueOf(isRelease));
 
+        // 编译参数的传递
 //        javaCompileOptions {
 //            annotationProcessorOptions{
-//                arguments = [myvalue: 'hello javapoet']
+//                arguments = [myvalue: 'hello javapoet xxxx']
 //            }
 //        }
+        javaCompileOptions {
+            annotationProcessorOptions{
+                arguments = [moduleName: this.project.getName(), packageNameForAPT: packageNameForAPT]
+            }
+        }
     }
 
     buildTypes {
@@ -42,17 +48,10 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
     implementation project(':common')
     implementation project(':annotation')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     annotationProcessor project(':annotation-processor')
     if(isRelease){
         implementation project(':order')

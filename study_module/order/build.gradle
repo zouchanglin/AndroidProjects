@@ -16,14 +16,20 @@ android {
     defaultConfig {
         // 组件化模式下才需要applicationId
         if(!isRelease){
-            applicationId "cn.tim.order"
+            applicationId app_id.order
         }
         minSdkVersion app_android.minSdkVersion
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion app_android.targetSdkVersion
+        versionCode app_android.versionCode
+        versionName app_android.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner app_android.testInstrumentationRunner
+
+        javaCompileOptions {
+            annotationProcessorOptions{
+                arguments = [moduleName: this.project.getName(), packageNameForAPT: packageNameForAPT]
+            }
+        }
     }
 
     buildTypes {
@@ -57,14 +63,7 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
-
     implementation project(':common')
+    implementation project(':annotation')
+    annotationProcessor project(':annotation-processor')
 }

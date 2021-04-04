@@ -262,10 +262,33 @@ List<? extends Element> members = processingEnv.getElementUtils().getAllMembers(
 ### 4、生成我们想要的目标代码
 
 ```java
-public class MainActivity$$$$$ARouter {
-  public static Class findTargetClass(String path) {
-    return path.equals("app/MainActivity") ? MainActivity.class : null;
-  }
+例如：Personal Path：
+// 这就是要用 APT 动态生成的代码
+public class ARouter$$Path$$personal implements ARouterPath {
+
+    @Override
+    public Map<String, RouterBean> getPathMap() {
+        Map<String, RouterBean> pathMap = new HashMap<>();
+
+        pathMap.put("/personal/PersonalMainActivity",
+                RouterBean.create(RouterBean.TypeEnum.ACTIVITY,
+                                  Order_MainActivity.class,
+                           "/personal/PersonalMainActivity",
+                          "personal"));
+        return pathMap;
+    }
+}
+
+例如：Personal Group：
+// 这就是要用 APT 动态生成的代码
+public class ARouter$$Group$$personal implements ARouterGroup {
+
+    @Override
+    public Map<String, Class<? extends ARouterPath>> getGroupMap() {
+        Map<String, Class<? extends ARouterPath>> groupMap = new HashMap<>();
+        groupMap.put("personal", ARouter$$Path$$personal.class);
+        return groupMap;
+    }
 }
 ```
 
@@ -285,16 +308,27 @@ javaCompileOptions {
 ......
 @SupportedOptions("myvalue")
 public class ARouterProcessor extends AbstractProcessor {
-    // 操作Element的工具类，函数、类、属性都是Element
-    private Elements elementsTool;
+    // 做一些初始化工作
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnv) {
+        super.init(processingEnv);
+        ......
+        Map<String, String> options = processingEnv.getOptions();
+        String myvalue = options.get("myvalue");
+        messager.printMessage(Diagnostic.Kind.NOTE, "编译参数:myvalue = " + myvalue);
+    }
+}
+```
 
-    // 类信息的工具类
-    private Types typesTool;
+### 6、补充：公共依赖库的引入
 
-    // 编译期打印日志
-    private Messager messager;
-  
-    ......
+```groovy
+dependencies {
+    app_dependencies.each {k, v ->
+        // api方式引入，其他模块在引入common时才会生效
+        api v
+        println('引入依赖: ' + k + " -> " + v)
+    }
 }
 ```
 
