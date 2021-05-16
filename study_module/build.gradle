@@ -23,6 +23,10 @@ allprojects {
         google()
         jcenter()
     }
+
+    task cleanBuildDir(type: Delete) {
+        delete("${projectDir}/build")
+    }
 }
 
 task clean(type: Delete) {
