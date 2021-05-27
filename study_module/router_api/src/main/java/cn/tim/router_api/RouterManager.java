@@ -7,16 +7,19 @@ import android.util.Log;
 import android.util.LruCache;
 
 
+import java.util.Map;
+
 import cn.tim.annotation.bean.RouterBean;
 
 public class RouterManager {
     private static final String TAG = "RouterManager";
     private static RouterManager instance;
 
+    // fixme ParameterManager.class -> RouterManager.class
     public static RouterManager getInstance(){
-        if(instance == null) {
-            synchronized (ParameterManager.class){
-                if(instance == null){
+        if(instance == null){
+            synchronized (RouterManager.class){
+                if(instance == null) {
                     instance = new RouterManager();
                 }
             }
@@ -32,8 +35,8 @@ public class RouterManager {
     private String group; // 路由的组名称 order、personal、
     private String path; // 路由的路径 /order/OrderMainActivity
 
-    private LruCache<String, ARouterPath> pathLruCache;
-    private LruCache<String, ARouterGroup> groupLruCache;
+    private final LruCache<String, ARouterPath> pathLruCache;
+    private final LruCache<String, ARouterGroup> groupLruCache;
 
     String FILE_GROUP_NAME = "ARouter$$Group$$";
     String APT_PACKAGE_NAME = "customrouter_apt";
@@ -50,7 +53,7 @@ public class RouterManager {
         Log.i(TAG, "navigation: groupClassName = " + groupClassName);
         ARouterGroup routerGroup = groupLruCache.get(group);
         if(routerGroup == null) {
-            Class<?> aClass = null;
+            Class<?> aClass;
             try {
                 aClass = Class.forName(groupClassName);
                 routerGroup = (ARouterGroup) aClass.newInstance();
@@ -61,11 +64,16 @@ public class RouterManager {
         }
 
         ARouterPath routerPath = pathLruCache.get(path);
-        if(routerPath == null){
-            Class<? extends ARouterPath> aClass = routerGroup.getGroupMap().get(group);
+        if(routerPath == null && routerGroup != null){
+            Map<String, Class<? extends ARouterPath>> groupMap = routerGroup.getGroupMap();
+            if(groupMap == null){
+                throw new RuntimeException("groupMap is null");
+            }
+
+            Class<? extends ARouterPath> aClass = groupMap.get(group);
+
             try {
                 routerPath = aClass.newInstance();
-
                 pathLruCache.put(path, routerPath);
             } catch (Exception e) {
                 e.printStackTrace();
